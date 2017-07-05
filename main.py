@@ -11,7 +11,7 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
-    body = db.Column(db.Longtext)
+    body = db.Column(db.Text)
 
     def __init__(self, title, body):
         self.title = title
