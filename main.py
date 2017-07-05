@@ -21,6 +21,11 @@ class Blog(db.Model):
 def index():
     return "Hello"
 
+@app.route('/blog')  # displays all posts
+
+
+@app.route('/newpost')  # submits new post; after submitting, redirects to main blog page
+
 
 
 if __name__ == '__main__':
