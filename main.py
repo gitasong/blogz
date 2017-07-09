@@ -17,13 +17,12 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
-@app.route('/blog', methods=['POST', 'GET'])
-def index():
-    return render_template('all_entries.html', title='Build A Blog!')
+@app.route('/blog', methods=['POST', 'GET'])  # displays all posts
+def display_all():
+    if request.method == 'GET' or request.method == 'POST':
+        entries = Blog.query.all()
+        return render_template('all_entries.html', title='Build A Blog!', entries=entries)
 
-# @app.route('/blog')  # displays all posts
-#
-#
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
     if request.method == 'GET':
