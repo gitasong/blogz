@@ -1,23 +1,7 @@
-{% extends "base.html" %}
+% extends "base.html" %}
 
     {% block content %}
-        <h1>Build A Blog!</h1>
-
-        {% if entries|length == 0 %}
-        <p>No entries yet.</p>
-        {% else %}
-            <ul>
-                {% for entry in entries %}
-                <li>{{entry.title}}
-                    <form method="post" action="/delete-entry" style="display:inline-block;">
-                        <input type="hidden" name="entry-id" value="{{entry.id}}" />
-                        <input type="submit" value="Delete Entry" />
-                    </form>
-                </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
+        <h1>Add A New Entry</h1>
 
         <form action="" method="post">
             <div class="form-group">
@@ -35,4 +19,5 @@
             <input type="hidden" name="id" id="id">
             <input type="submit" value="Add Blog Entry">
         </form>
+        
     {% endblock %}
