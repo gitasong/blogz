@@ -8,8 +8,8 @@
                 <label for="title">Title of your blog entry: </label>
                 <br>
                 <input type="text" name="title" id="title" placeholder="My First Blog Post"></input>
-                {% if error %}
-                    <p class='error'>{{ error }}</p>
+                {% if title_error %}
+                    <p class='error'>{{ title_error }}</p>
                 {% endif %}
             </div>
             <br>
@@ -17,8 +17,8 @@
                 <label for="body">Text of your blog entry: </label>
                 <br>
                 <textarea name="body" id="body" rows="6" cols="50" placeholder="Your scintillating content goes here."></textarea>
-                {% if error %}
-                    <p class='error'>{{ error }}</p>
+                {% if body_error %}
+                    <p class='error'>{{ body_error }}</p>
                 {% endif %}
             </div>
             <br>
