@@ -19,12 +19,12 @@ class Blog(db.Model):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return "Hello"
+    return render_template('index.html', title='Build A Blog!')
 
-@app.route('/blog')  # displays all posts
-
-
-@app.route('/newpost')  # submits new post; after submitting, redirects to main blog page
+# @app.route('/blog')  # displays all posts
+#
+#
+# @app.route('/newpost')  # submits new post; after submitting, redirects to main blog page
 
 
 
