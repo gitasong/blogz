@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="body">Text of your blog entry: </label>
                 <br>
-                <textarea name="body" id="body" rows="6" cols="50" value="{{ entry_body }}" placeholder="Your scintillating content goes here."></textarea>
+                <textarea name="body" id="body" rows="6" cols="50" placeholder="Your scintillating content goes here.">{{ entry_body }}</textarea>
                 {% if body_error %}
                     <p class='error'>{{ body_error }}</p>
                 {% endif %}
