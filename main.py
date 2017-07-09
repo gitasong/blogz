@@ -17,14 +17,27 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/blog', methods=['POST', 'GET'])
 def index():
     return render_template('all_entries.html', title='Build A Blog!')
 
 # @app.route('/blog')  # displays all posts
 #
 #
-# @app.route('/newpost')  # submits new post; after submitting, redirects to main blog page
+@app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
+def add_post():
+    if request.method == 'GET':
+        return render_template('new_entry.html', title="Build A Blog!")
+
+    if request.method == 'POST':
+        entry_title = request.form['title']
+        entry_body = request.form['body']
+        entry_id = request.form['id']
+        new_blog = Blog(entry_title, entry_body)
+        db.session.add(new_blog)
+        db.session.commit()
+
+        return render_template('all_entries.html', title="Build A Blog!")
 
 
 
