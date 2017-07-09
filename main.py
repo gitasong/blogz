@@ -38,11 +38,11 @@ def add_post():
 
         if not entry_title:
             title_error = error
-            return render_template('new_entry.html', title="Build A Blog!", title_error=title_error)
+            return render_template('new_entry.html', title="Build A Blog!", title_error=title_error, entry_body=entry_body)
 
         if not entry_body:
             body_error = error
-            return render_template('new_entry.html', title="Build A Blog!", body_error=body_error)
+            return render_template('new_entry.html', title="Build A Blog!", body_error=body_error, entry_title=entry_title)
 
         if not title_error and not body_error:
             new_blog = Blog(entry_title, entry_body)
