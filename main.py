@@ -19,7 +19,7 @@ class Blog(db.Model):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html', title='Build A Blog!')
+    return render_template('all_entries.html', title='Build A Blog!')
 
 # @app.route('/blog')  # displays all posts
 #
