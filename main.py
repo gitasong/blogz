@@ -33,11 +33,22 @@ def add_post():
         entry_title = request.form['title']
         entry_body = request.form['body']
         entry_id = request.form['id']
-        new_blog = Blog(entry_title, entry_body)
-        db.session.add(new_blog)
-        db.session.commit()
+        error = "This field cannot be left blank."
+        title_error, body_error = "", ""
 
-        return render_template('all_entries.html', title="Build A Blog!")
+        if not entry_title:
+            title_error = error
+            return render_template('new_entry.html', title="Build A Blog!", title_error=title_error)
+
+        if not entry_body:
+            body_error = error
+            return render_template('new_entry.html', title="Build A Blog!", body_error=body_error)
+
+        if not title_error and not body_error:
+            new_blog = Blog(entry_title, entry_body)
+            db.session.add(new_blog)
+            db.session.commit()
+            return render_template('all_entries.html', title="Build A Blog!")
 
 
 
