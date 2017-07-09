@@ -6,16 +6,15 @@
         {% if entries|length == 0 %}
         <p>No entries yet.</p>
         {% else %}
-            <ul>
-                {% for blog in entries %}
-                <li>{{blog.title}}
-                    <form method="post" action="/delete-entry" style="display:inline-block;">
-                        <input type="hidden" name="entry-id" value="{{blog.id}}" />
-                        <input type="submit" value="Delete Entry" />
-                    </form>
-                </li>
-                {% endfor %}
-            </ul>
+            {% for blog in entries %}
+                <h2>{{blog.title}}</h2>
+                <p>{{blog.body}}</p>
+                <form method="post" action="/delete-entry" style="display:inline-block;">
+                    <input type="hidden" name="entry-id" value="{{blog.id}}" />
+                    <input type="submit" value="Delete Entry" />
+                </form>
+                <br>
+            {% endfor %}
         {% endif %}
 
     {% endblock %}
