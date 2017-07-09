@@ -3,7 +3,7 @@
     {% block content %}
         <h1>Add A New Entry</h1>
 
-        <form action="" method="post">
+        <form action="/newpost" method="post">
             <div class="form-group">
                 <label for="title">Title of your blog entry: </label>
                 <br>
@@ -13,11 +13,11 @@
             <div class="form-group">
                 <label for="body">Text of your blog entry: </label>
                 <br>
-                <textarea name="title" id="title" rows="6" cols="50" placeholder="Your scintillating content goes here."></textarea>
+                <textarea name="body" id="body" rows="6" cols="50" placeholder="Your scintillating content goes here."></textarea>
             </div>
             <br>
             <input type="hidden" name="id" id="id">
             <input type="submit" value="Add Blog Entry">
         </form>
-        
+
     {% endblock %}
