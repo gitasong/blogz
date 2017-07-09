@@ -7,10 +7,10 @@
         <p>No entries yet.</p>
         {% else %}
             <ul>
-                {% for entry in entries %}
-                <li>{{entry.title}}
+                {% for blog in entries %}
+                <li>{{blog.title}}
                     <form method="post" action="/delete-entry" style="display:inline-block;">
-                        <input type="hidden" name="entry-id" value="{{entry.id}}" />
+                        <input type="hidden" name="entry-id" value="{{blog.id}}" />
                         <input type="submit" value="Delete Entry" />
                     </form>
                 </li>
