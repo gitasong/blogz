@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label for="title">Title of your blog entry: </label>
                 <br>
-                <input type="text" name="title" id="title" value="{{ entry_title }}" placeholder="My First Blog Post"></input>
+                <input type="text" name="title" id="title" value="{{ blog_title }}" placeholder="My First Blog Post"></input>
                 {% if title_error %}
                     <p class='error'>{{ title_error }}</p>
                 {% endif %}
@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="body">Text of your blog entry: </label>
                 <br>
-                <textarea name="body" id="body" rows="6" cols="50" placeholder="Your scintillating content goes here.">{{ entry_body }}</textarea>
+                <textarea name="body" id="body" rows="6" cols="50" placeholder="Your scintillating content goes here.">{{ blog_body }}</textarea>
                 {% if body_error %}
                     <p class='error'>{{ body_error }}</p>
                 {% endif %}

@@ -17,6 +17,7 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
+
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def display_all():
     if request.method == 'GET' or request.method == 'POST':
@@ -26,29 +27,41 @@ def display_all():
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
     if request.method == 'GET':
-        return render_template('new_entry.html', title="Build A Blog!")
+        return render_template('new_blog.html', title="Build A Blog!")
 
     if request.method == 'POST':
-        entry_title = request.form['title']
-        entry_body = request.form['body']
-        entry_id = request.form['id']
+        blog_title = request.form['title']
+        blog_body = request.form['body']
+        blog_id = request.form['id']
         error = "This field cannot be left blank."
         title_error, body_error = "", ""
 
-        if not entry_title:
+        if not blog_title:
             title_error = error
-            return render_template('new_entry.html', title="Build A Blog!", title_error=title_error, entry_body=entry_body)
+            return render_template('new_blog.html', title="Build A Blog!", title_error=title_error, blog_body=blog_body)
 
-        if not entry_body:
+        if not blog_body:
             body_error = error
-            return render_template('new_entry.html', title="Build A Blog!", body_error=body_error, entry_title=entry_title)
+            return render_template('new_blog.html', title="Build A Blog!", body_error=body_error, blog_title=blog_title)
 
         if not title_error and not body_error:
-            new_blog = Blog(entry_title, entry_body)
+            new_blog = Blog(blog_title, blog_body)
             db.session.add(new_blog)
             db.session.commit()
             return render_template('all_entries.html', title="Build A Blog!")
 
+@app.route('/single-blog/?id=<int:id>', methods=['GET'])
+def display_single_blog():
+    # blog = Blog.query.filter_by(id=id)
+    blog_id = request.args.get(id)
+    return render_template('single-blog.html', blog=blog, id=blog_id)
+
+# @app.route('/single-blog/<int:id>', methods=['GET'])
+# def show_blog(id):
+#     # show the post with the given id, the id is an integer
+#     # return render_template('single-blog.html/%d', % id, blog=blog)
+#     id = request.args.get(id)
+#     return render_template('single-blog.html', blog=blog, id=id)
 
 
 if __name__ == '__main__':
