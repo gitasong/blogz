@@ -48,9 +48,12 @@ def add_post():
             new_blog = Blog(blog_title, blog_body)
             db.session.add(new_blog)
             db.session.commit()
-            return render_template('all_blogs.html', title="Build A Blog!")
+            # return render_template('all_blogs.html', title="Build A Blog!")
+            # id = new_blog.id
+            # return redirect("/single-blog?id={}".format(id))
+            return render_template('single_blog.html', title="Build A Blog!", blog=new_blog)
 
-@app.route('/single-blog/?id=<int:id>', methods=['GET'])
+@app.route('/single-blog/?id=<int:id>', methods=['POST'])
 def display_single_blog():
     # blog = Blog.query.filter_by(id=id)
     blog_id = request.args.get(id)
