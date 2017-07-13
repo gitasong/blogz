@@ -21,8 +21,8 @@ class Blog(db.Model):
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def display_all():
     if request.method == 'GET' or request.method == 'POST':
-        entries = Blog.query.all()
-        return render_template('all_entries.html', title='Build A Blog!', entries=entries)
+        blogs = Blog.query.all()
+        return render_template('all_blogs.html', title='Build A Blog!', blogs=blogs)
 
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
@@ -48,7 +48,7 @@ def add_post():
             new_blog = Blog(blog_title, blog_body)
             db.session.add(new_blog)
             db.session.commit()
-            return render_template('all_entries.html', title="Build A Blog!")
+            return render_template('all_blogs.html', title="Build A Blog!")
 
 @app.route('/single-blog/?id=<int:id>', methods=['GET'])
 def display_single_blog():
