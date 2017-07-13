@@ -25,7 +25,7 @@ def display_all():
         blog_id = int(request.args.get('id'))
         print(blog_id)
         blog = Blog.query.filter_by(id=blog_id)
-        return render_template('single_blog.html', title='Build A Blog!', blog=blog, id=blog_id)
+        return render_template('single_blog.html', title='Build A Blog!', blog=blog)
 
     if request.method == 'GET' or request.method == 'POST':
         blogs = Blog.query.all()
