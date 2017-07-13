@@ -20,9 +20,17 @@ class Blog(db.Model):
 
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def display_all():
+    # Of course, the difference is that in this use case it's a GET request with query parameters. So we'll want to handle the GET requests differently, returning a different template, depending on the contents (or lack thereof) of the dictionary request.args.
+    if request.method == 'GET' and request.args.get('id'):
+        blog_id = int(request.args.get('id'))
+        print(blog_id)
+        blog = Blog.query.filter_by(id=blog_id)
+        return render_template('single_blog.html', title='Build A Blog!', blog=blog, id=blog_id)
+
     if request.method == 'GET' or request.method == 'POST':
         blogs = Blog.query.all()
         return render_template('all_blogs.html', title='Build A Blog!', blogs=blogs)
+
 
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
@@ -53,11 +61,11 @@ def add_post():
             # return redirect("/single-blog?id={}".format(id))
             return render_template('single_blog.html', title="Build A Blog!", blog=new_blog)
 
-@app.route('/single-blog/?id=<int:id>', methods=['POST'])
-def display_single_blog():
-    # blog = Blog.query.filter_by(id=id)
-    blog_id = request.args.get(id)
-    return render_template('single-blog.html', blog=blog, id=blog_id)
+# @app.route('/single-blog/?id=<int:id>', methods=['POST'])
+# def show_single_blog():
+#     blog = Blog.query.filter_by(id=id)
+#     blog_id = request.args.get(id)
+#     return render_template('single-blog.html', blog=blog, id=blog_id)
 
 # @app.route('/single-blog/<int:id>', methods=['GET'])
 # def show_blog(id):
