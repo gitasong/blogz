@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css">
-            p.error {color: red;}
-        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
         <title>{{title}}</title>
     </head>
     <body>
-        <ul class="nav">
-          <li class="nav-item" style="display:inline-block;">
-            <a class="nav-link" href="/newpost">Add A Blog Entry</a>
-          </li>
-          <li class="nav-item" style="display:inline-block;">
-            <a class="nav-link" href="/blog">View All Entries</a>
-          </li>
-        </ul>
-
-        {% block content %}
-        {% endblock  %}
-
+        <div class="container-fluid">
+            <div class="nav-inline">
+                <ul class="nav">
+                    <li class="nav-item" style="display:inline-block;">
+                        <a class="nav-link" href="/newpost">Add A Blog Entry</a>
+                    </li>
+                    <li class="nav-item" style="display:inline-block;">
+                        <a class="nav-link" href="/blog">View All Entries</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="jumbotron">
+                <h1>Build A Blog!</h1>
+                <h3>A minimalist blog-building app using Python, Flask, and SQLAlchemy</h3>
+            </div>
+            <div class="container main">
+                {% block content %}
+                {% endblock  %}
+            </div>
+        </div>
     </body>
 </html>
