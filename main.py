@@ -21,10 +21,10 @@ class Blog(db.Model):
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def display_all():
     # Of course, the difference is that in this use case it's a GET request with query parameters. So we'll want to handle the GET requests differently, returning a different template, depending on the contents (or lack thereof) of the dictionary request.args.
+
     if request.method == 'GET' and request.args.get('id'):
-        blog_id = int(request.args.get('id'))
-        print(blog_id)
-        blog = Blog.query.filter_by(id=blog_id)
+        blog_id = request.args.get('id')
+        blog = Blog.query.get(blog_id)
         return render_template('single_blog.html', title='Build A Blog!', blog=blog)
 
     if request.method == 'GET' or request.method == 'POST':
