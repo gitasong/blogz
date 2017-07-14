@@ -40,7 +40,7 @@ def add_post():
     if request.method == 'POST':
         blog_title = request.form['title']
         blog_body = request.form['body']
-        blog_id = request.form['id']
+        # blog_id = request.form['id']
         error = "This field cannot be left blank."
         title_error, body_error = "", ""
 
@@ -57,9 +57,9 @@ def add_post():
             db.session.add(new_blog)
             db.session.commit()
             # return render_template('all_blogs.html', title="Build A Blog!")
-            # id = new_blog.id
-            # return redirect("/single-blog?id={}".format(id))
-            return render_template('single_blog.html', title="Build A Blog!", blog=new_blog)
+            blog_id = new_blog.id
+            return redirect("/blog?id={}".format(blog_id))
+            # return render_template('single_blog.html', title="Build A Blog!", blog=new_blog)
 
 # @app.route('/single-blog/?id=<int:id>', methods=['POST'])
 # def show_single_blog():
