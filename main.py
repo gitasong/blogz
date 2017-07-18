@@ -12,10 +12,24 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     body = db.Column(db.Text)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body):
+    def __init__(self, title, body, owner):
         self.title = title
         self.body = body
+        self.owner = owner
+        
+
+Class User(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255))
+    password = db.Column(db.String(255))
+    blogs = db.relationship('Blog', backref='owner')
+
+    def __init__(self, username, password)
+        self.username = username
+        self.password = password
 
 
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
