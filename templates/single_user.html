@@ -2,7 +2,7 @@
 
     {% block content %}
         <h1>Posts for {{ user.username }}</h1>
-            {% if user_blogs|length == 0 %}
+            {% if not user_blogs %}
                 <p>No blogs yet.</p>
             {% else %}
                 {% for blog in user_blogs %}
