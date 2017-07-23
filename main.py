@@ -49,6 +49,8 @@ def login():
             flash('Invalid username', 'empty')
             return redirect('/login')
 
+    return render_template('login.html')
+
     # if user does not have account and clicks "Create Account", they are directed to the /signup page
 
 @app.route('/signup', methods=['POST', 'GET'])
