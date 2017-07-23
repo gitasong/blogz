@@ -32,6 +32,12 @@ class User(db.Model):
         self.password = password
 
 
+@app.before_request
+def require_login():
+    if 'username' not in session:
+        return redirect('/login')
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -84,6 +90,10 @@ def signup():
 
     return render_template('signup.html')
 
+@app.route('/logout')
+def logout():
+    del session['username']
+    return redirect('/login')  # need to change once other pages set up
 
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def show_posts():
