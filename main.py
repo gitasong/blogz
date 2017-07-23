@@ -73,8 +73,8 @@ def signup():
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
-            session['username'] = username
-            return redirect('/newpost') # redirect to /newpost - username stored in session
+            # session['username'] = username
+            return redirect('/blog') # redirect to /newpost - username stored in session
         else:
             # flash error message that username already exists
             # flash('That username is already in use. Please choose another', 'duplicate')
