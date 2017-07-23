@@ -106,6 +106,8 @@ def show_posts():
         blogs = Blog.query.all()
         return render_template('all_blogs.html', title='Blogz', blogs=blogs)
 
+# owner = User.query.filter_by(username=session['username']).first()
+# blogs = Blog.query.filter_by(owner=owner) (before new_blog)
 
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
