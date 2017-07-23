@@ -38,11 +38,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
-        if user and check_pw_hash(password, user.pw_hash):
+
+        if user and user.password == password:
             session['username'] = username
             flash("Logged in", 'info')
             return redirect('/newpost')
-        elif user and not check_pw_hash(password, user.pw_hash):
+        elif user and not user.password == password:
             flash('User password incorrect', 'danger')
             return redirect('/login')
         else:
