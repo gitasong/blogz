@@ -8,7 +8,7 @@
         {% else %}
             <h2>Our Authors:</h2>
             {% for user in users %}
-                <h4><a href="/user?id={{ user.id }}">{{ user.username }}</a></h4>
+                <h4><a href="/blog?userID={{ user.id }}">{{ user.username }}</a></h4>
                 <br>
             {% endfor %}
         {% endif %}
