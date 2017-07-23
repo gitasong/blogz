@@ -69,15 +69,16 @@ def signup():
         # if password and verify don't match, flash error message that passwords don't match
 
         existing_user = User.query.filter_by(username=username).first()
-        if existing_user:
-            # flash error message that username already exists
-            flash('That username is already in use. Please choose another', 'duplicate')
-        elif not existing_user:
+        if not existing_user:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
             return redirect('/newpost') # redirect to /newpost - username stored in session
+        else:
+            # flash error message that username already exists
+            # flash('That username is already in use. Please choose another', 'duplicate')
+            return '<h1>Duplicate User</h1>'
         # else:
         #     flash("The username <strong>{0}</strong> is already registered".format(username), 'danger')
 
