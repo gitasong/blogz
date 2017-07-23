@@ -122,6 +122,7 @@ def add_post():
     if request.method == 'POST':
         blog_title = request.form['title']
         blog_body = request.form['body']
+        owner = User.query.filter_by(username=session['username']).first()
         error = "This field cannot be left blank."
         title_error, body_error = "", ""
 
@@ -134,7 +135,7 @@ def add_post():
             return render_template('new_blog.html', title="Build A Blog!", body_error=body_error, blog_title=blog_title)
 
         if not title_error and not body_error:
-            new_blog = Blog(blog_title, blog_body)
+            new_blog = Blog(blog_title, blog_body, owner)
             db.session.add(new_blog)
             db.session.commit()
             blog_id = new_blog.id
