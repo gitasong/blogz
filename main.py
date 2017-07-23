@@ -82,7 +82,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
-            return redirect('/blog') # redirect to /newpost - username stored in session
+            return redirect('/newpost')
         else:
             flash('The username {0} is already in use. Please choose another.', 'duplicate_username')
 
