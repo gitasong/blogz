@@ -92,7 +92,7 @@ h6 {
     color: green;
 }
 
-.invalid_username, .invalid_password {
+.invalid_username, .invalid_password, .duplicate_username {
     color: red;
 }
 
