@@ -69,8 +69,8 @@ def signup():
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             # flash error message that username already exists
-
-        if not existing_user:
+            flash('That username is already in use. Please choose another', 'duplicate')
+        elif not existing_user:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
