@@ -88,6 +88,14 @@ h6 {
     list-style: none;
 }
 
+.logged_in {
+    color: green;
+}
+
+.invalid_username, .invalid_password {
+    color: red;
+}
+
 .jumbotron {
     width: 100%;
     border-radius: 0px;
