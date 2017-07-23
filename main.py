@@ -106,6 +106,16 @@ def show_posts():
         blog = Blog.query.get(blog_id)
         return render_template('single_blog.html', title='Blogz', blog=blog)
 
+    # displays all blog posts for an individual user
+    if request.method == 'GET' and request.args.get('userID'):
+        user_id = request.args.get('userID')
+        print("user_id = " + user_id)
+        user = User.query.get(user_id)
+        print("user = " + user.username)
+        user_blogs = Blog.query.filter_by(owner_id=user_id).all()
+        print(user_blogs)
+        return render_template('single_user.html', title='Blogz', user=user, user_blogs=user_blogs)
+
     # displays all blog posts
     if request.method == 'GET' or request.method == 'POST':
         blogs = Blog.query.all()
