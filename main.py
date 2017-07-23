@@ -6,6 +6,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:getconnected@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
+app.secret_key = '*S#jmR^E!@FM*9hc&C74!GGpN'
 
 class Blog(db.Model):
 
@@ -102,19 +103,19 @@ def show_posts():
     if request.method == 'GET' and request.args.get('id'):
         blog_id = request.args.get('id')
         blog = Blog.query.get(blog_id)
-        return render_template('single_blog.html', title='Build A Blog!', blog=blog)
+        return render_template('single_blog.html', title='Blogz', blog=blog)
 
     # displays all blog posts
     if request.method == 'GET' or request.method == 'POST':
         blogs = Blog.query.all()
-        return render_template('all_blogs.html', title='Build A Blog!', blogs=blogs)
+        return render_template('all_blogs.html', title='Blogz', blogs=blogs)
 
 
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
     # displays the add a post form
     if request.method == 'GET':
-        return render_template('new_blog.html', title="Build A Blog!")
+        return render_template('new_blog.html', title="Blogz")
 
     # form handler for new posts
     if request.method == 'POST':
