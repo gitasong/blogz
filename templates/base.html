@@ -26,6 +26,15 @@
                 <h3>A minimalist blog-building app using Python, Flask, and SQLAlchemy</h3>
             </div>
             <div class="container main">
+
+                {% with messages = get_flashed_messages() %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endwith %}
+
                 {% block content %}
                 {% endblock  %}
             </div>
