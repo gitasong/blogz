@@ -51,6 +51,33 @@ def login():
 
     # if user does not have account and clicks "Create Account", they are directed to the /signup page
 
+@app.route('/signup', methods=['POST', 'GET'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        verify = request.form['verify']
+
+        # TODO - validate user's data
+        # if either username, password, or verify are blank, flash error message that affected fields are invalid
+        # if either len(username) < 3 or len(password) <3, flash 'invalid username' or 'invalid password' message
+        # if password and verify don't match, flash error message that passwords don't match
+
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            # flash error message that username already exists
+
+        if not existing_user:
+            new_user = User(username, password)
+            db.session.add(new_user)
+            db.session.commit()
+            session['username'] = username
+            return redirect('/newpost') # redirect to /newpost - username stored in session
+        # else:
+        #     flash("The username <strong>{0}</strong> is already registered".format(username), 'danger')
+
+    return render_template('signup.html')
+
 
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def show_posts():
