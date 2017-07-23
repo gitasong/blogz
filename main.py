@@ -23,7 +23,7 @@ class Blog(db.Model):
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255))
+    username = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     blogs = db.relationship('Blog', backref='owner')
 
@@ -39,16 +39,17 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
-        if user and user.password == password:
-            session['username'] = username
-            flash("Logged in", 'info')
-            return redirect('/newpost')
-        elif user and not user.password == password:
-            flash('User password incorrect', 'danger')
-            return redirect('/login')
-        else:
-            flash('Invalid username', 'empty')
-            return redirect('/login')
+        # if user and user.password == password:
+        #     session['username'] = username
+        #     flash("Logged in", 'info')
+        #     return redirect('/newpost')
+        # elif user and not user.password == password:
+        #     flash('User password incorrect', 'danger')
+        #     return redirect('/login')
+        # else:
+        #     flash('Invalid username', 'empty')
+        #     return redirect('/login')
+        return redirect('/blog')
 
     return render_template('login.html')
 
