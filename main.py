@@ -51,8 +51,7 @@ def login():
             session['username'] = username
             flash("Successfully logged in!", 'logged_in')
             print(session)
-            return redirect('/blog')
-        #     return redirect('/newpost')
+            return redirect('/newpost')
         elif user and not user.password == password:
             flash('Invalid password', 'invalid_password')
             print(session)
