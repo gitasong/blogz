@@ -32,6 +32,26 @@ class User(db.Model):
         self.password = password
 
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if user and check_pw_hash(password, user.pw_hash):
+            session['username'] = username
+            flash("Logged in", 'info')
+            return redirect('/newpost')
+        elif user and not check_pw_hash(password, user.pw_hash):
+            flash('User password incorrect', 'danger')
+            return redirect('/login')
+        else:
+            flash('Invalid username', 'empty')
+            return redirect('/login')
+
+    # if user does not have account and clicks "Create Account", they are directed to the /signup page
+
+
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def show_posts():
     # displays single blog post
