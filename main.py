@@ -40,6 +40,11 @@ def require_login():
         return redirect('/login')
 
 
+@app.route('/')
+def index():
+    users = User.query.all()
+    return render_template('index.html', users=users)
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
