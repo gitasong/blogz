@@ -39,7 +39,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
-        # if user and user.password == password:
+        if user and user.password == password:
         #     session['username'] = username
         #     flash("Logged in", 'info')
         #     return redirect('/newpost')
@@ -49,7 +49,7 @@ def login():
         # else:
         #     flash('Invalid username', 'empty')
         #     return redirect('/login')
-        return redirect('/blog')
+            return redirect('/blog')
 
     return render_template('login.html')
 
