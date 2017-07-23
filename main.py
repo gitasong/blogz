@@ -91,7 +91,7 @@ def signup():
 @app.route('/logout')
 def logout():
     del session['username']
-    return redirect('/login')  # need to change once other pages set up
+    return redirect('/blog')
 
 @app.route('/blog', methods=['POST', 'GET'])  # displays all posts
 def show_posts():
