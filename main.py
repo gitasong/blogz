@@ -46,12 +46,13 @@ def login():
         # elif user and not user.password == password:
         #     flash('User password incorrect', 'danger')
         #     return redirect('/login')
-        # else:
+            return redirect('/blog')
+        else:
+            return '<h1>Error!</h1>'
         #     flash('Invalid username', 'empty')
         #     return redirect('/login')
-            return redirect('/blog')
 
-    return render_template('login.html')
+    # return render_template('login.html')
 
     # if user does not have account and clicks "Create Account", they are directed to the /signup page
 
