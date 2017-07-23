@@ -117,11 +117,8 @@ def show_posts():
     # displays all blog posts for an individual user
     if request.method == 'GET' and request.args.get('userID'):
         user_id = request.args.get('userID')
-        print("user_id = " + user_id)
         user = User.query.get(user_id)
-        print("user = " + user.username)
         user_blogs = Blog.query.filter_by(owner_id=user_id).all()
-        print(user_blogs)
         return render_template('single_user.html', title='Blogz', user=user, user_blogs=user_blogs)
 
     # displays all blog posts
