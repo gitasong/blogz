@@ -3,5 +3,5 @@
     {% block content %}
                 <h1>{{ blog.title }}</h1>
                 <p>{{ blog.body }}</p>
-                <small>written by <a href="/blog?userID={{ blog.owner_id }}">{{ user.username }}</a></small>
+                <small>—written by <a href="/blog?userID={{ blog.owner_id }}">{{ user.username }}</a></small>
     {% endblock %}
