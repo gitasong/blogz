@@ -181,3 +181,7 @@ input[type="submit"]:hover,
     border: 1px #000000 solid;
     color: #000000 !important;
 }
+
+td.error {
+    padding-left: 1rem;
+}
