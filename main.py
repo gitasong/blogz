@@ -113,7 +113,7 @@ def signup():
                 verify_error = "Passwords must match"
                 verify = ""
 
-        if not existing_user and (username_error or password_error or verify_error):
+        if not existing_user and username_error or password_error or verify_error:
             return render_template ("signup.html",
             username=username,
             username_error=username_error, password_error=password_error, verify_error=verify_error)
@@ -144,12 +144,6 @@ def show_posts():
         user = User.query.get(user_id)
         return render_template('single_blog.html', title='Blogz', user=user, blog=blog)
 
-    # # displays single blog post
-    # if request.method == 'GET' and request.args.get('id'):
-    #     blog_id = request.args.get('id')
-    #     blog = Blog.query.get(blog_id)
-    #     return render_template('single_blog.html', title='Blogz', blog=blog)
-
     # displays all blog posts for an individual user
     if request.method == 'GET' and request.args.get('userID'):
         user_id = request.args.get('userID')
@@ -161,9 +155,6 @@ def show_posts():
     if request.method == 'GET' or request.method == 'POST':
         blogs = Blog.query.all()
         return render_template('all_blogs.html', title='Blogz', blogs=blogs)
-
-# owner = User.query.filter_by(username=session['username']).first()
-# blogs = Blog.query.filter_by(owner=owner) (before new_blog)
 
 @app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
 def add_post():
