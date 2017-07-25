@@ -76,20 +76,56 @@ def signup():
         password = request.form['password']
         verify = request.form['verify']
 
-        # TODO - validate user's data
-        # if either username, password, or verify are blank, flash error message that affected fields are invalid
-        # if either len(username) < 3 or len(password) <3, flash 'invalid username' or 'invalid password' message
-        # if password and verify don't match, flash error message that passwords don't match
+        username_error = ""
+        password_error = ""
+        verify_error = ""
 
         existing_user = User.query.filter_by(username=username).first()
-        if not existing_user:
+
+        # Form Validation
+        # if either username, password, or verify are blank, display error message that affected fields are invalid
+        # if either len(username) < 3 or len(password) <3, display 'invalid username' or 'invalid password' message
+        # if password and verify don't match, display error message that passwords don't match
+
+        if not username:
+            username_error = "This field cannot be empty"
+            username = ""
+        else:
+            username_len = len(username)
+            if  username_len < 3:
+                username_error = "Username must 3 or more characters"
+                username = ""
+
+        if not password:
+            password_error = "This field cannot be empty"
+            password = ""
+        else:
+            password_len = len(password)
+            if  password_len < 3:
+                password_error = "Password must be 3 or more characters"
+                password = ""
+
+        if not verify:
+            verify_error = "This field cannot be empty"
+            verify = ""
+        else:
+            if verify != password:
+                verify_error = "Passwords must match"
+                verify = ""
+
+        if not existing_user and (username_error or password_error or verify_error):
+            return render_template ("signup.html",
+            username=username,
+            username_error=username_error, password_error=password_error, verify_error=verify_error)
+        elif not existing_user and not username_error and not password_error and not verify_error:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
             return redirect('/newpost')
         else:
-            flash('The username {0} is already in use. Please choose another.', 'duplicate_username')
+            flash('That username is already in use. Please choose another.', 'duplicate_username')
+            return redirect('/signup')
 
     return render_template('signup.html')
 
