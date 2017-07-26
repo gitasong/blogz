@@ -96,6 +96,14 @@ def signup():
                 username_error = "Username must 3 or more characters"
                 username = ""
 
+        if not verify:
+            verify_error = "This field cannot be empty"
+            verify = ""
+        else:
+            if verify != password:
+                verify_error = "Passwords must match"
+                verify = ""
+
         if not password:
             password_error = "This field cannot be empty"
             password = ""
@@ -104,14 +112,6 @@ def signup():
             if  password_len < 3:
                 password_error = "Password must be 3 or more characters"
                 password = ""
-
-        if not verify:
-            verify_error = "This field cannot be empty"
-            verify = ""
-        else:
-            if verify != password:
-                verify_error = "Passwords must match"
-                verify = ""
 
         if not existing_user and username_error or password_error or verify_error:
             return render_template ("signup.html",
