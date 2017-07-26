@@ -35,6 +35,8 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
+    """specifies routes user is allowed to see without being logged in"""
+    
     allowed_routes = ['login', 'signup', 'show_posts', 'index']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
@@ -42,35 +44,43 @@ def require_login():
 
 @app.route('/')
 def index():
+    """displays all registered users of Blogz"""
+
     users = User.query.all()
     return render_template('index.html', users=users)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    """form handler for login form: if username and password valid, logs user in; otherwise, displays appropriate errors"""
+
+    # processes form data; queries database for existing user
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
+        # if username in database and password matches entered password, log user in
         if user and user.password == password:
             session['username'] = username
             flash("Successfully logged in!", 'logged_in')
             print(session)
             return redirect('/newpost')
+        # if username in database but password invalid:
         elif user and not user.password == password:
             flash('Invalid password', 'invalid_password')
             print(session)
             return redirect('/login')
+        # if username not in database:
         else:
             flash('Invalid username', 'invalid_username')
             return redirect('/login')
 
     return render_template('login.html')
 
-    # if user does not have account and clicks "Create Account", they are directed to the /signup page
-
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
+    """form handler for signup form: validates form and displays appropriate errors; if no errors, creates new user and saves to session and database"""
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -113,16 +123,21 @@ def signup():
                 password_error = "Password must be 3 or more characters"
                 password = ""
 
+        # if user is not in database and one or more validation errors are generated, re-serve form with appropriate error messages:
         if not existing_user and username_error or password_error or verify_error:
             return render_template ("signup.html",
             username=username,
             username_error=username_error, password_error=password_error, verify_error=verify_error)
+
+        # if user is not in database and no validation errors are generated (i.e. all form data is valid), create new user and save in database and session variable:
         elif not existing_user and not username_error and not password_error and not verify_error:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
             return redirect('/newpost')
+
+        # if username is already in database (i.e. duplicate user):
         else:
             flash('That username is already in use. Please choose another.', 'duplicate_username')
             return redirect('/signup')
@@ -131,11 +146,14 @@ def signup():
 
 @app.route('/logout')
 def logout():
+    """logs user out; deletes user data from session"""
     del session['username']
     return redirect('/blog')
 
-@app.route('/blog', methods=['POST', 'GET'])  # displays all posts
+@app.route('/blog', methods=['POST', 'GET'])
 def show_posts():
+    """displays blog posts: single, single-user, and all"""
+
     # displays single blog post
     if request.method == 'GET' and request.args.get('id'):
         blog_id = request.args.get('id')
@@ -156,8 +174,10 @@ def show_posts():
         blogs = Blog.query.all()
         return render_template('all_blogs.html', title='Blogz', blogs=blogs)
 
-@app.route('/newpost', methods=['POST', 'GET'])  # submits new post; after submitting, redirects to main blog page
+@app.route('/newpost', methods=['POST', 'GET'])
 def add_post():
+    """form handler for new posts; if no form validation errors, redirects to blog post page"""
+
     # displays the add a post form
     if request.method == 'GET':
         return render_template('new_blog.html', title="Blogz")
@@ -170,14 +190,17 @@ def add_post():
         error = "This field cannot be left blank."
         title_error, body_error = "", ""
 
-        if not blog_title:  # if blog title is missing, render error
+        # if blog title is missing, render error
+        if not blog_title:
             title_error = error
             return render_template('new_blog.html', title="Build A Blog!", title_error=title_error, blog_body=blog_body)
 
-        if not blog_body:  # if blog body is missing, render error
+        # if blog body is missing, render error
+        if not blog_body:
             body_error = error
             return render_template('new_blog.html', title="Build A Blog!", body_error=body_error, blog_title=blog_title)
 
+        # if no errors are generated, create new blog post
         if not title_error and not body_error:
             new_blog = Blog(blog_title, blog_body, owner)
             db.session.add(new_blog)
